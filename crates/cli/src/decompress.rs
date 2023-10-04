@@ -494,6 +494,7 @@ fn default_decompression_commands() -> Vec<DecompressionCommand> {
     const ARGS_BROTLI: &[&str] = &["brotli", "-d", "-c"];
     const ARGS_ZSTD: &[&str] = &["zstd", "-q", "-d", "-c"];
     const ARGS_UNCOMPRESS: &[&str] = &["uncompress", "-c"];
+    const ARGS_SNAPPY: &[&str] = &["szip", "-d", "-s"];
 
     fn add(glob: &str, args: &[&str], cmds: &mut Vec<DecompressionCommand>) {
         let bin = match resolve_binary(Path::new(args[0])) {
@@ -526,5 +527,7 @@ fn default_decompression_commands() -> Vec<DecompressionCommand> {
     add("*.zst", ARGS_ZSTD, &mut cmds);
     add("*.zstd", ARGS_ZSTD, &mut cmds);
     add("*.Z", ARGS_UNCOMPRESS, &mut cmds);
+    add("*.sz", ARGS_SNAPPY, &mut cmds);
+    add("*.snappy", ARGS_SNAPPY, &mut cmds);
     cmds
 }
